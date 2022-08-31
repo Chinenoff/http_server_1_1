@@ -15,6 +15,7 @@ import static java.util.concurrent.Executors.newFixedThreadPool;
 public class Server {
 
     private static List<String> validPaths;
+    //private static List<String> validPaths;
 
 
     public void runServer(int portServer, int numberThread, List<String> validPaths) {
