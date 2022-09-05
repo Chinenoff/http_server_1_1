@@ -6,6 +6,8 @@ import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -96,7 +98,18 @@ public class Server {
                 return;
             }
 
-            final var path = requestLine[1];
+            var path = requestLine[1];
+            String pathDelParams;
+            URI requestLineQuery = null;
+
+            /*if (path.indexOf('?') != -1) {
+                final var pathParams = path.split("\\?");
+               *//* pathDelParams = pathParams[0];
+                requestLineQuery = new URI(pathParams[1]);
+                //System.out.println( "PATH:" + pathParams[0]);
+                //System.out.println( "PARAMS: " + pathParams[1]);*//*
+            }*/
+
             if (!path.startsWith("/")) {
                 badRequest(out);
                 return;
@@ -152,7 +165,7 @@ public class Server {
             handler.handle(request, out);
 
             LOGGER.info("Connection[" + socket.getInetAddress() + "/" + socket.getPort() + "] * Connection Processing Finished.");
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
             LOGGER.error("Connection[" + socket.getInetAddress() + "/" + socket.getPort() + "]Problem with communication", e);
             e.printStackTrace();
         }
