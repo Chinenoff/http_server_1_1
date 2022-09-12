@@ -102,14 +102,6 @@ public class Server {
             String pathDelParams;
             URI requestLineQuery = null;
 
-            /*if (path.indexOf('?') != -1) {
-                final var pathParams = path.split("\\?");
-               *//* pathDelParams = pathParams[0];
-                requestLineQuery = new URI(pathParams[1]);
-                //System.out.println( "PATH:" + pathParams[0]);
-                //System.out.println( "PARAMS: " + pathParams[1]);*//*
-            }*/
-
             if (!path.startsWith("/")) {
                 badRequest(out);
                 return;
@@ -171,7 +163,6 @@ public class Server {
         }
     }
 
-
     private void badRequest(BufferedOutputStream out) throws IOException {
 
         LOGGER.error("400 Bad Request");
@@ -211,7 +202,6 @@ public class Server {
         }
         return -1;
     }
-
 
     private static Optional<String> extractHeader(List<String> headers, String header) {
         return headers.stream()

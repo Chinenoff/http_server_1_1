@@ -1,14 +1,13 @@
 
 
 public class Main {
+
+    private static final int SERVERPORT = 9999;
+    private static final int NUMBERTHREADS = 64;
+
     public static void main(String[] args) {
-        //Запуск сервера с передачей параметров запуска через командную строку
-        //(номер_порта, число_потоков_в_ThreadPool, путь_к_папке_с_файлами)
-        //Например  ->  9999 64 D:\00_java\All_My_Project\http-server_v11\files
-        var port = Integer.parseInt(args[0]);
-        var numberThreads = Integer.parseInt(args[1]);
-        //var directory = args[2];
-        final var server = new Server(port, numberThreads);
+
+        final var server = new Server(SERVERPORT, NUMBERTHREADS);
 
         // добавление handler'ов (обработчиков)
         server.addHandler("GET", "/messages", (request, out) -> {
@@ -32,7 +31,6 @@ public class Main {
             ).getBytes());
             out.flush();
         });
-
         server.listen();
     }
 }
